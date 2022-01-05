@@ -1,0 +1,25 @@
+from pydantic import BaseModel, Field
+from decimal import Decimal
+from typing import Optional
+from datetime import date
+
+
+class TransactionBase(BaseModel):
+    #account_id: str
+    #share_id: str 
+    deal_price: Decimal = Field(...)
+    deal_date: date = Field(...)
+
+
+class TransactionCreate(TransactionBase):
+    pass
+
+
+class TransactionUpdate(TransactionBase):
+    pass
+
+class Transaction(TransactionBase):
+    _id: int = Field(...)
+    
+    class Config:
+        orm_mode = True

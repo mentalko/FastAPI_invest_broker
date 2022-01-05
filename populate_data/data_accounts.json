@@ -1,0 +1,25 @@
+[{
+  "full_name": "Alexey Navalny",
+  "email": "a.valny@gg.com",
+  "registration_date": "2010-09-23",
+  "tariff": "investor",
+  "deposited_usd": 1000,
+  "hashed_password": "hashed_password",
+  "share_ids": [6478]
+},{
+  "full_name": "Ilya Ilchenko",
+  "email": "ilya_or@mail.com",
+  "registration_date": "2014-02-01",
+  "tariff": "trader",
+  "deposited_usd": 51322,
+  "hashed_password": "hashed_password",
+  "share_ids": [6478, 3453]
+},{
+  "full_name": "Sergey Ivashenkov",
+  "email": "Ivashenkov@mail.com",
+  "registration_date": "2009-10-12",
+  "tariff": "investor",
+  "deposited_usd": 101,
+  "hashed_password": "hashed_password",
+  "share_ids": []
+}]

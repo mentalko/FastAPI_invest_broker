@@ -1,0 +1,5 @@
+[
+    { "_id" : 1, "account_id" : 2, "share_id" : 6478, "deal_price" : 120.99, "deal_date" : "2020-09-22",},
+    { "_id" : 2, "account_id" : 2, "share_id" : 3453, "deal_price" : 86.1,  "deal_date" : "2020-02-01",},
+    { "_id" : 3, "account_id" : 2, "share_id" : 3453, "deal_price" : 126.1,  "deal_date" : "2020-02-05",},
+  ]
