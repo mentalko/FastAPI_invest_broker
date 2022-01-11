@@ -8,19 +8,17 @@ from fastapi_pagination import Page, add_pagination, paginate
 from fastapi.encoders import jsonable_encoder
 from odmantic.bson import ObjectId
 
-from .. import tables 
 # from ..database import get_session
-from ..models.account import Account #, AccountShares, AccountBalance
+from ..models.account import Account, AccountInfo #, AccountShares, AccountBalance
 from ..services.accounts_service import AccountsService
 from ..core.db import engine, db
-from ..models.account import Account, Share
-# from ..models.serializers import AccountSerializer
 
 router = APIRouter(
     prefix='/accounts'
 )
 
-@router.get("/all", tags=["Account"], response_model=Page)
+
+@router.get("/all", tags=["Account"], response_model=List)
 async def root(    service: AccountsService = Depends()
 ):
     """
@@ -28,15 +26,15 @@ async def root(    service: AccountsService = Depends()
     :return: List of all accounts
     """
     response = await service.fetch_accounts_list()
-    print (response)
-    return paginate(response)
+    # print (response)
+    return response #paginate(response)
 
-@router.get('/{id}',tags=["Account"], response_model=None)
+@router.get('/{id}',tags=["Account"], response_model=AccountInfo)
 async def list_accounts(
     id: ObjectId,
     service: AccountsService = Depends()
 ):
-    response = await service.fetch_account_info(id)
+    response = await service.fetch_account_by_id(id)
     print(response)
     return response
 
@@ -97,13 +95,7 @@ async def list_accounts(
 #     response = await service.fetch_one(account_id)
 #     return response
 
-# @router.get('/shares/{account_id}', response_model=List[ShareSerializer])
-# # response_model_exclude=("_id", "account_id", "share_id"))
-# async def get_account_shares(
-#     account_id: int, 
-# ):
-#     response = await service.fetch_account_shares(account_id)
-#     return response
+
 
 # @router.get('/balance/{account_id}', response_model=List[AccountBalance])
 # async def get_account_balace(

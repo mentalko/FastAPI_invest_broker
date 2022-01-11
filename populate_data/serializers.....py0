@@ -6,55 +6,55 @@ from odmantic import Field, Model, EmbeddedModel
 
 from bson.objectid import ObjectId
 from pydantic.main import BaseModel
-from umongo import Document, fields
+# from umongo import Document, fields
 
 from src.core.config import SECRET_KEY, PWD_CONTEXT, ALGORITHM
 from src.models.account import Share
 # from src.core.db import instance, db
 
-class CurrencyKind(str, Enum):
-    USD = 'USD'
-    EUR = 'EUR'
-    RUB = 'RUB'
+# class CurrencyKind(str, Enum):
+#     USD = 'USD'
+#     EUR = 'EUR'
+#     RUB = 'RUB'
 
-class ShareEmbedded(BaseModel):
-    id: str
-    name: str 
-    ticker: str  
-    currency: CurrencyKind 
-    close_price: float 
-    description: Optional[str] 
+# class ShareEmbedded(BaseModel):
+#     id: str
+#     name: str 
+#     ticker: str  
+#     currency: CurrencyKind 
+#     close_price: float 
+#     description: Optional[str] 
 
-    class Config:
-            collection = 'shares'
-            json_encoders = {ObjectId: str}
+#     class Config:
+#             collection = 'shares'
+#             json_encoders = {ObjectId: str}
 
 
 
-class AccountShares(Model):
-    name: str 
-    ticker: str  
-    currency: CurrencyKind 
-    close_price: float 
+# class AccountShares(Model):
+#     name: str 
+#     ticker: str  
+#     currency: CurrencyKind 
+#     close_price: float 
 
-class TariffKind(str, Enum):
-    INVESTOR = 'investor'
-    TRADER = 'trader'
+# class TariffKind(str, Enum):
+#     INVESTOR = 'investor'
+#     TRADER = 'trader'
 
-class AccountSerializer(BaseModel):
-    id: ObjectId
-    full_name: str 
-    email: str  
-    registration_date: date
-    tariff: TariffKind 
-    deposited_usd: float 
-    hashed_password: str 
+# class AccountSerializer(BaseModel):
+#     id: ObjectId
+#     full_name: str 
+#     email: str  
+#     registration_date: date
+#     tariff: TariffKind 
+#     deposited_usd: float 
+#     hashed_password: str 
     
-    shares: List
+#     shares: List
 
-    class Config:
-        collection = 'accounts'
-        json_encoders = {ObjectId: str}
+#     class Config:
+#         collection = 'accounts'
+#         json_encoders = {ObjectId: str}
 
 
 

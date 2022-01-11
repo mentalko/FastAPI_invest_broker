@@ -1,7 +1,7 @@
 [
-    { "_id" : 6478, "name" : "Tesla", "ticker" : "TSLA", "currency" : "USD", "close_price" : 720.11, "description" : null },
-    { "_id" : 3453, "name" : "Alibaba", "ticker" : "BABA", "currency" : "USD", "close_price" : 145.88, "description" : null },
-    { "_id" : 323, "name" : "Deutsche Telekom", "ticker" : "DTE", "currency" : "EUR", "close_price" : 16.20, "description" : null },
-    { "_id" : 355, "name" : "Volkswagen AG", "ticker" : "VWAGY", "currency" : "EUR", "close_price" : 176.90, "description" : null },
-    { "_id" : 1423, "name" : "Норильский Никель", "ticker" : "GMKN", "currency" : "RUB", "close_price" : 15722.00 , "description" : null }
+    { "name" : "Tesla", "ticker" : "TSLA", "currency" : "USD", "close_price" : 720.11, "description" : null },
+    { "name" : "Alibaba", "ticker" : "BABA", "currency" : "USD", "close_price" : 145.88, "description" : null },
+    { "name" : "Deutsche Telekom", "ticker" : "DTE", "currency" : "EUR", "close_price" : 16.20, "description" : null },
+    { "name" : "Volkswagen AG", "ticker" : "VWAGY", "currency" : "EUR", "close_price" : 176.90, "description" : null },
+    { "name" : "Норильский Никель", "ticker" : "GMKN", "currency" : "RUB", "close_price" : 15722.00 , "description" : null }
 ]

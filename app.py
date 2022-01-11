@@ -1,8 +1,8 @@
 from fastapi.applications import FastAPI
 from fastapi_pagination import add_pagination
-from . import api 
+from src.api import router
 
 app = FastAPI()
-app.include_router(api.router)
+app.include_router(router)
 
 add_pagination(app)

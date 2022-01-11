@@ -1,14 +1,35 @@
 from datetime import datetime
 from typing import Optional
-
+from enum import Enum
 from bson.objectid import ObjectId
 from odmantic import Field, Model, EmbeddedModel
 
-from src.core.config import SECRET_KEY, PWD_CONTEXT, ALGORITHM
 # from src.core.db import instance, db
 
 
+class CurrencyKind(str, Enum):
+    USD = 'USD'
+    EUR = 'EUR'
+    RUB = 'RUB'
 
+
+class Share(Model):
+    name: str 
+    ticker: str  
+    currency: CurrencyKind 
+    close_price: float 
+    description: Optional[str] 
+
+    class Config:
+        collection = 'shares'
+        json_encoders = {ObjectId: str}
+
+
+class AccountShares(Model):
+    name: str 
+    ticker: str  
+    currency: CurrencyKind 
+    close_price: float 
 
 # class Share(EmbeddedModel):
 #     _id: int

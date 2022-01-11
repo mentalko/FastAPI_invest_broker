@@ -1,10 +1,10 @@
 from datetime import date, datetime
 from typing import List, Optional
 from bson.objectid import ObjectId
-
+from enum import Enum
 from typing import Optional
 
-from src.core.config import SECRET_KEY, PWD_CONTEXT, ALGORITHM
+# from src.core.config import SECRET_KEY, PWD_CONTEXT, ALGORITHM
 # from src.core.db import instance, db
 
 # from src.models.share import Share
@@ -12,55 +12,61 @@ from src.core.config import SECRET_KEY, PWD_CONTEXT, ALGORITHM
 from odmantic import Field, Model, EmbeddedModel
 from pydantic import EmailStr
 
-class Transaction(Model):
-    # _id: int
-    account_id: str 
-    share_id: int  
-    deal_price: str 
-    deal_date: str
+class TariffKind(str, Enum):
+    INVESTOR = 'investor'
+    TRADER = 'trader'
 
-    class Config:
-        collection = 'transaction'
-        json_encoders = {ObjectId: str}
-
-class Share(Model):
-    # _id: int
-    name: str 
-    ticker: str  
-    currency: str 
-    close_price: float 
-    description: Optional[str] 
-
-    class Config:
-        collection = 'shares'
-        json_encoders = {ObjectId: str}
-
-    
 
 class Account(Model):
-    # _id: int
     full_name: str
     email: str #EmailStr
     registration_date: str # datetime = datetime.utcnow()
-    tariff: str
+    tariff: TariffKind
     deposited_usd: float 
     hashed_password: str
     share_list: List = []
+    # balance: float
     
     class Config:
         collection = 'accounts'
         json_encoders = {ObjectId: str}
+        
+        
+        
+class AccountInfo(Account):
+    balance: int
+    
+    class Config:
+        collection = 'accounts'
+        json_encoders = {ObjectId: str}
+        
+        
+
+
+# class ShareEmbedded(BaseModel):
+#     id: str
+#     name: str 
+#     ticker: str  
+#     currency: CurrencyKind 
+#     close_price: float 
+#     description: Optional[str] 
+
+#     class Config:
+#             collection = 'shares'
+#             json_encoders = {ObjectId: str}
+
+
+
+
+    
+
+
 
 
 # class AccountCreate(Account):
 #     shares: List[Share] = []
     
     # location: Optional[str] = None
-
-
-
-
-
 
 
 # @instance.register

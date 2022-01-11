@@ -3,44 +3,35 @@ from bson import json_util
 from typing import List, Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy.orm import Session, query
 
-from .. import tables
-from src.models.account import Account, Share
+from src.models.account import Account
 # from src.models.share import Share
 from src.core.db import db, engine
-
-#from ..database import col_accounts, col_shares, col_transactions
-from src.settings import settings
-
-import logging
-
-
-async def _shares_by_id_or_ticker( share_ids: List):
-    shares = []
-    for id in share_ids:
-        share = await db.shares.find_one({"_id": id})
-        shares.append(Share(**share))
-    # print(shares)
-    return shares
-
-async def _shares_sum_price(share_ids: List):
-    pass
-
-
-async def _balance(deposited_usd, share_ids: List):
-    shares = await _shares_by_id_or_ticker( share_ids)
-    sum_share_prices = sum([s.close_price for s in shares])
-    return deposited_usd - sum_share_prices
-
-
-async def _shares_list_by_account(account_id):
-    transactions = db.transactions.find({"account_id": account_id})
-    for doc in await transactions.to_list(10):
-        print (doc)
-
-    return transactions
     
+def parse_json(data):
+    return json.loads(json_util.dumps(data))
+
+
+pipeline = []
+pipeline.append(
+    {
+        "$addFields": {
+            "balance": {
+                "$sum": [++Account.deposited_usd, ++1000000000 ]
+            }  # Compute the area remotely
+        }
+    }
+)
+pipeline.append(
+    {
+        "$lookup": {
+            'from': 'shares',
+            'localField': 'share_list',
+            'foreignField': 'ticker',
+            'as': 'share_list'
+        }
+    }
+)
     
 class AccountsService:
     def __init__(self):
@@ -48,27 +39,80 @@ class AccountsService:
 
     async def fetch_accounts_list(self):
         accounts = await engine.find(Account) 
-        print(accounts)
-        return  jsonable_encoder(accounts)
+        
+        collection = engine.get_collection(Account)
+        
+        documents = await collection.aggregate(pipeline).to_list(length=None)
+        print(jsonable_encoder(accounts))
+        print(parse_json(documents))
+        return  parse_json(documents) #jsonable_encoder(documents)
 
-    async def fetch_account_info(self, id):
+    async def fetch_account_by_id(self, id):
         account = await engine.find_one(Account, Account.id == id)
         if account is None:
             raise HTTPException(404)
-
-        
-        share_ids = account.share_list
-        deposit = account.deposited_usd
-        balance = await _balance(deposit, share_ids )
-        account.share_list = await _shares_by_id_or_ticker(share_ids)
-
-        account = jsonable_encoder(account)
-        account['balance'] = balance
-        account['profitability'] = "{:.2f}%".format((deposit - balance)/deposit*100)
-
-        transactions = await _shares_list_by_account(id)
+        # account['profitability'] = "{:.2f}%".format((deposit - balance)/deposit*100)
+        # transactions = await _shares_list_by_account(id)
         
         return account
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# async def _shares_by_id_or_ticker( share_ids: List):
+#     shares = []
+#     for id in share_ids:
+#         share = await db.shares.find_one({"_id": id})
+#         shares.append(Share(**share))
+#     # print(shares)
+#     return shares
+
+# async def _shares_sum_price(share_ids: List):
+#     pass
+
+
+# async def _balance(deposited_usd, share_ids: List):
+#     shares = await _shares_by_id_or_ticker( share_ids)
+#     sum_share_prices = sum([s.close_price for s in shares])
+#     return deposited_usd - sum_share_prices
+
+
+# async def _shares_list_by_account(account_id):
+#     transactions = db.transactions.find({"account_id": account_id})
+#     for doc in await transactions.to_list(10):
+#         print (doc)
+
+#     return transactions
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
      
 
     # async def fetch_one(self, account_id: int):

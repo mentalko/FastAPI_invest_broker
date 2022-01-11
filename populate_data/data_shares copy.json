@@ -1,7 +1,0 @@
-[
-    { "name" : "Tesla", "ticker" : "TSLA", "currency" : "USD", "close_price" : 720.11, "description" : null },
-    { "name" : "Alibaba", "ticker" : "BABA", "currency" : "USD", "close_price" : 145.88, "description" : null },
-    { "name" : "Deutsche Telekom", "ticker" : "DTE", "currency" : "EUR", "close_price" : 16.20, "description" : null },
-    { "name" : "Volkswagen AG", "ticker" : "VWAGY", "currency" : "EUR", "close_price" : 176.90, "description" : null },
-    { "name" : "Норильский Никель", "ticker" : "GMKN", "currency" : "RUB", "close_price" : 15722.00 , "description" : null }
-]

@@ -1,4 +1,4 @@
-from passlib.context import CryptContext
+#from passlib.context import CryptContext
 from starlette.config import Config, environ
 from starlette.datastructures import CommaSeparatedStrings
 
@@ -8,7 +8,7 @@ BASE_PATH_API = config('BASE_PATH_API')
 
 SECRET_KEY = config('SECRET_KEY', default='secretkey')
 ALGORITHM = "HS256"
-PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
+#PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=CommaSeparatedStrings, default=['*'])
 

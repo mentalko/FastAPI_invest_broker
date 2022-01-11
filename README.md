@@ -1,12 +1,12 @@
 # FastAPI Invest Broker
 **WARNING: Проект очень сырой!!!**
 
-API инвестиционного брокера 
-
+**WARNING: Проект в процессе разработки!!!**
 
 TODO:
-
-[ ] переписать с odmantic на umongo
+- [ ] разобраться и использовать MongoDB Aggregation
+- [X] использовать тикеры акций в качестве ID
+- [X] разобраться с odmantic 
 
 Схема-план проекта:
 ![Screenshot](screenshot.png)
